@@ -8,7 +8,7 @@ func Des3ECBEncrypt(src, key []byte, padding string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	return ECBEncrypt(block, src, key, padding)
+	return ECBEncrypt(block, src, padding)
 }
 
 // Des3ECBDecrypt
@@ -18,7 +18,7 @@ func Des3ECBDecrypt(src, key []byte, padding string) ([]byte, error) {
 		return nil, err
 	}
 
-	return ECBDecrypt(block, src, key, padding)
+	return ECBDecrypt(block, src, padding)
 }
 
 // Des3CBCEncrypt
@@ -28,7 +28,7 @@ func Des3CBCEncrypt(src, key, iv []byte, padding string) ([]byte, error) {
 		return nil, err
 	}
 
-	return CBCEncrypt(block, src, key, iv, padding)
+	return CBCEncrypt(block, src, iv, padding)
 }
 
 // Des3CBCDecrypt
@@ -38,5 +38,5 @@ func Des3CBCDecrypt(src, key, iv []byte, padding string) ([]byte, error) {
 		return nil, err
 	}
 
-	return CBCDecrypt(block, src, key, iv, padding)
+	return CBCDecrypt(block, src, iv, padding)
 }

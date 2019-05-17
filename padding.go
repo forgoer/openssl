@@ -4,11 +4,14 @@ import (
 	"bytes"
 )
 
+const PKCS5_PADDING = "PKCS5"
 const PKCS7_PADDING = "PKCS7"
 const ZEROS_PADDING = "ZEROS"
 
 func Padding(padding string, src []byte, blockSize int) []byte {
 	switch padding {
+	case PKCS5_PADDING:
+		src = PKCS5Padding(src, blockSize)
 	case PKCS7_PADDING:
 		src = PKCS7Padding(src, blockSize)
 	case ZEROS_PADDING:
@@ -19,12 +22,22 @@ func Padding(padding string, src []byte, blockSize int) []byte {
 
 func UnPadding(padding string, src []byte) []byte {
 	switch padding {
+	case PKCS5_PADDING:
+		src = PKCS5Unpadding(src)
 	case PKCS7_PADDING:
 		src = PKCS7UnPadding(src)
 	case ZEROS_PADDING:
 		src = ZerosUnPadding(src)
 	}
 	return src
+}
+
+func PKCS5Padding(src []byte, blockSize int) []byte {
+	return PKCS7Padding(src, blockSize)
+}
+
+func PKCS5Unpadding(src []byte) []byte {
+	return PKCS7UnPadding(src)
 }
 
 func PKCS7Padding(src []byte, blockSize int) []byte {

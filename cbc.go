@@ -5,7 +5,7 @@ import (
 )
 
 // CBCEncrypt
-func CBCEncrypt(block cipher.Block, src, key, iv []byte, padding string) ([]byte, error) {
+func CBCEncrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, error) {
 	blockSize := block.BlockSize()
 	src = Padding(padding, src, blockSize)
 
@@ -18,7 +18,7 @@ func CBCEncrypt(block cipher.Block, src, key, iv []byte, padding string) ([]byte
 }
 
 // CBCDecrypt
-func CBCDecrypt(block cipher.Block, src, key, iv []byte, padding string) ([]byte, error) {
+func CBCDecrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, error) {
 
 	dst := make([]byte, len(src))
 

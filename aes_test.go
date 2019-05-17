@@ -6,6 +6,17 @@ import (
 	"encoding/base64"
 )
 
+func TestAes(t *testing.T) {
+	src := []byte("1234567890_QWERTY")
+	key := []byte("12345123451234512345123451234512")
+	dst, err := AesECBEncrypt(src, key, PKCS7_PADDING)
+	assert.NoError(t, err)
+
+	t.Log(base64.StdEncoding.EncodeToString(dst))
+	assert.Equal(t, base64.StdEncoding.EncodeToString(dst), "MdzAshBM1s7uxcblqWIyTY0s2tcEpGg+OwaQzHMd45o=")
+
+}
+
 func TestAesEncrypt(t *testing.T) {
 	src := []byte("123456")
 
