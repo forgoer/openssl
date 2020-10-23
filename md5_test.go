@@ -1,6 +1,8 @@
 package openssl
 
 import (
+	"encoding/base64"
+	"encoding/hex"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -8,8 +10,8 @@ import (
 func TestMd5(t *testing.T) {
 	src := "apple"
 	dst := Md5(src)
-	assert.Equal(t, dst, "1f3870be274f6c49b3e31a0c6728957f")
+	assert.Equal(t, hex.EncodeToString(dst), "1f3870be274f6c49b3e31a0c6728957f")
 
-	dst = Md5(src, true)
-	assert.Equal(t, dst, "274f6c49b3e31a0c")
+	contentMD5 := base64.StdEncoding.EncodeToString([]byte(dst))
+	t.Log(contentMD5)
 }
