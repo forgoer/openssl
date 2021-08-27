@@ -48,6 +48,9 @@ func PKCS7Padding(src []byte, blockSize int) []byte {
 
 func PKCS7UnPadding(src []byte) []byte {
 	length := len(src)
+	if length == 0 {
+		return src
+	}
 	unpadding := int(src[length-1])
 	return src[:(length - unpadding)]
 }
