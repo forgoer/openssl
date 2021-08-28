@@ -1,12 +1,13 @@
 package openssl
 
 import (
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestSha1(t *testing.T) {
 	src := "apple"
 	dst := Sha1(src)
-	assert.Equal(t, dst, "d0be2dc421be4fcd0172e5afceea3970e2f3d940")
+	assert.Equal(t, dst, []byte{0xd0, 0xbe, 0x2d, 0xc4, 0x21, 0xbe, 0x4f, 0xcd, 0x1, 0x72, 0xe5, 0xaf, 0xce, 0xea, 0x39, 0x70, 0xe2, 0xf3, 0xd9, 0x40})
 }
