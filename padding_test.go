@@ -21,7 +21,7 @@ func TestPKCS7UnPadding(t *testing.T) {
 			want: []byte{},
 		},
 		{
-			name: `src=="120"`,
+			name: `src=="121"`,
 			args: args{src: []byte{1, 2, 1}},
 			want: []byte{1, 2},
 		},
