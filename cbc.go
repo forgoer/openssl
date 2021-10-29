@@ -25,7 +25,5 @@ func CBCDecrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, err
 	mode := cipher.NewCBCDecrypter(block, iv)
 	mode.CryptBlocks(dst, src)
 
-	dst = UnPadding(padding, dst)
-
-	return dst, nil
+	return UnPadding(padding, dst)
 }
