@@ -16,6 +16,6 @@ func KeyGenerator(src []byte, blockSize int) []byte {
 
 func SHA1(data []byte) []byte {
 	h := sha1.New()
-	h.Write(data)
+	_, _ = h.Write(data)
 	return h.Sum(nil)
 }

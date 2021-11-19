@@ -7,6 +7,6 @@ import (
 // Md5 Calculate the md5 hash of a string
 func Md5(str string) []byte {
 	h := md5.New()
-	h.Write([]byte(str))
+	_, _ = h.Write([]byte(str))
 	return h.Sum(nil)
 }
