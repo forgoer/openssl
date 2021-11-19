@@ -1,9 +1,9 @@
 package openssl
 
 import (
-	"testing"
-	"github.com/stretchr/testify/assert"
 	"encoding/base64"
+	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
 func TestDesEncrypt(t *testing.T) {

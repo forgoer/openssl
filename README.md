@@ -1,5 +1,6 @@
 # Openssl encryption
 
+[![Default](https://github.com/forgoer/openssl/workflows/build/badge.svg?branch=master)](https://github.com/forgoer/openssl/actions)
 [![Build Status](https://www.travis-ci.org/forgoer/openssl.svg?branch=master)](https://www.travis-ci.org/forgoer/openssl)
 [![Coverage Status](https://coveralls.io/repos/github/forgoer/openssl/badge.svg?branch=master)](https://coveralls.io/github/forgoer/openssl?branch=master)
 

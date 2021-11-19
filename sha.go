@@ -8,13 +8,13 @@ import (
 // Sha1 Calculate the sha1 hash of a string
 func Sha1(str string) []byte {
 	h := sha1.New()
-	h.Write([]byte(str))
+	_, _ = h.Write([]byte(str))
 	return h.Sum(nil)
 }
 
 func HmacSha1(key string, data string) []byte {
 	mac := hmac.New(sha1.New, []byte(key))
-	mac.Write([]byte(data))
+	_, _ = mac.Write([]byte(data))
 
 	return mac.Sum(nil)
 }
