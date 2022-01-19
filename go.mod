@@ -1,8 +1,5 @@
-module github.com/conero/openssl
+module github.com/forgoer/openssl
 
 go 1.12
-
-// replace package
-replace github.com/forgoer/openssl => github.com/conero/openssl
 
 require github.com/stretchr/testify v1.4.0
