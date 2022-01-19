@@ -13,7 +13,7 @@ func CBCEncrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, err
 	encryptData := make([]byte, len(src))
 
 	if len(iv) != block.BlockSize() {
-		return nil, errors.New("cipher.NewCBCEncrypter: IV length must equal block size")
+		return nil, errors.New("CBCEncrypt: IV length must equal block size")
 	}
 
 	mode := cipher.NewCBCEncrypter(block, iv)
@@ -28,7 +28,7 @@ func CBCDecrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, err
 	dst := make([]byte, len(src))
 
 	if len(iv) != block.BlockSize() {
-		return nil, errors.New("cipher.NewCBCEncrypter: IV length must equal block size")
+		return nil, errors.New("CBCDecrypt: IV length must equal block size")
 	}
 
 	mode := cipher.NewCBCDecrypter(block, iv)
