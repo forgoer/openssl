@@ -1,4 +1,4 @@
-module github.com/forgoer/openssl
+module github.com/conero/openssl
 
 go 1.12
 
