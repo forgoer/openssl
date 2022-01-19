@@ -2,6 +2,7 @@ package openssl
 
 import (
 	"crypto/cipher"
+	"errors"
 )
 
 // CBCEncrypt
@@ -10,6 +11,10 @@ func CBCEncrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, err
 	src = Padding(padding, src, blockSize)
 
 	encryptData := make([]byte, len(src))
+
+	if len(iv) != block.BlockSize() {
+		return nil, errors.New("cipher.NewCBCEncrypter: IV length must equal block size")
+	}
 
 	mode := cipher.NewCBCEncrypter(block, iv)
 	mode.CryptBlocks(encryptData, src)
@@ -21,6 +26,10 @@ func CBCEncrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, err
 func CBCDecrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, error) {
 
 	dst := make([]byte, len(src))
+
+	if len(iv) != block.BlockSize() {
+		return nil, errors.New("cipher.NewCBCEncrypter: IV length must equal block size")
+	}
 
 	mode := cipher.NewCBCDecrypter(block, iv)
 	mode.CryptBlocks(dst, src)

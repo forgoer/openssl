@@ -5,29 +5,6 @@ import (
 	"testing"
 )
 
-func TestAlgorithm_Decode_aes_ecb(t *testing.T) {
-	// 随机密文
-	key := str.RandStr.SafeStr(32)
-	origin := str.RandStr.SafeStr(500) + "中华人民共和国-贵州.贵阳"
-
-	alg := NewAlgorithm(AlgAesEcb, key)
-	cp, err := alg.Encode(origin)
-	if err != nil {
-		t.Errorf("算法 %v 加密错误，%v", AlgAesEcb, err)
-	}
-
-	// 解密参照
-	refOrigin, er := alg.Decode(cp)
-	if er != nil {
-		t.Errorf("算法 %v 解密错误，%v", AlgAesEcb, err)
-	}
-
-	if refOrigin != origin {
-		t.Errorf("算法 %v 加解密错误，\n 秘钥 %v", AlgAesEcb, key)
-	}
-
-}
-
 func TestAlgorithm_Encode_all(t *testing.T) {
 	// 随机密文
 	key := str.RandStr.SafeStr(32)
@@ -51,6 +28,6 @@ func TestAlgorithm_Encode_all(t *testing.T) {
 		}
 
 		// 成功显示
-		t.Logf("算法 %v 通过测试，加解密无误", algStr)
+		t.Logf("√ => 算法 %v 通过测试，加解密无误", algStr)
 	}
 }
