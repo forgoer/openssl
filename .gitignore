@@ -12,3 +12,6 @@
 *.out
 
 .idea
+
+# go-mod cache
+vendor
