@@ -5,6 +5,11 @@
 
 A functions wrapping of OpenSSL library for symmetric and asymmetric encryption and decryption
 
+- [AES](#AES)
+- [DES](#DES)
+- [3DES](#DES)
+- [RSA](#RSA)
+
 ## Installation
 
 The only requirement is the [Go Programming Language](https://golang.org/dl/)
@@ -78,6 +83,19 @@ openssl.Des3ECBDecrypt(src, key, openssl.PKCS7_PADDING)
 ```go
 openssl.Des3CBCEncrypt(src, key, iv, openssl.PKCS7_PADDING)
 openssl.Des3CBCDecrypt(src, key, iv, openssl.PKCS7_PADDING)
+```
+
+### RSA
+
+```go
+openssl.RSAGenerateKey(bits int, out io.Writer)
+openssl.RSAGeneratePublicKey(priKey []byte, out io.Writer)
+
+openssl.RSAEncrypt(src, pubKey []byte) ([]byte, error)
+openssl.RSADecrypt(src, priKey []byte) ([]byte, error)
+
+openssl.RSASign(src []byte, priKey []byte) ([]byte, error)
+openssl.RSAVerify(src, sign, pubKey []byte) error
 ```
 
 ## License
