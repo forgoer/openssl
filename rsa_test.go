@@ -2,9 +2,11 @@ package openssl
 
 import (
 	"bytes"
+	"crypto"
 	"encoding/base64"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestRSAEncrypt(t *testing.T) {
@@ -43,10 +45,10 @@ func TestRSASign(t *testing.T) {
 	t.Logf("public key: %s\n", pubBuf.Bytes())
 
 	src := []byte("123456")
-	sign, err := RSASign(src, priBuf.Bytes())
+	sign, err := RSASign(src, priBuf.Bytes(), crypto.SHA256)
 	assert.NoError(t, err)
 	t.Logf("sign out: %s\n", base64.RawStdEncoding.EncodeToString(sign))
 
-	err = RSAVerify(src, sign, pubBuf.Bytes())
+	err = RSAVerify(src, sign, pubBuf.Bytes(), crypto.SHA256)
 	assert.NoError(t, err)
 }

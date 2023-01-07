@@ -95,8 +95,8 @@ openssl.RSAGeneratePublicKey(priKey []byte, out io.Writer)
 openssl.RSAEncrypt(src, pubKey []byte) ([]byte, error)
 openssl.RSADecrypt(src, priKey []byte) ([]byte, error)
 
-openssl.RSASign(src []byte, priKey []byte) ([]byte, error)
-openssl.RSAVerify(src, sign, pubKey []byte) error
+openssl.RSASign(src []byte, priKey []byte, hash crypto.Hash) ([]byte, error)
+openssl.RSAVerify(src, sign, pubKey []byte, hash crypto.Hash) error
 ```
 
 ### HMAC-SHA
