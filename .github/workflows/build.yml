@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: [1.11, 1.12, 1.13, 1.14, 1.15, 1.16, 1.17]
+        go: ['1.18', '1.19', '1.20']
     steps:
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v4
         with:
           go-version: ${{ matrix.go }}
 
@@ -24,7 +24,7 @@ jobs:
         run: |
           go test -race -covermode atomic -coverprofile=covprofile ./...
       - name: Install goveralls
-        run: go get github.com/mattn/goveralls
+        run: go install github.com/mattn/goveralls@latest
       - name: Send coverage
         env:
           COVERALLS_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -42,12 +42,12 @@ func CBCDecrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, err
 }
 
 // cbcIVPending auto pad length to block size
-func cbcIVPending(iv []byte, blockSize int)[]byte  {
+func cbcIVPending(iv []byte, blockSize int) []byte {
 	k := len(iv)
-	if k < blockSize{
-		return append(iv, bytes.Repeat([]byte{0}, blockSize - k)...)
-	}else if k > blockSize{
-		return iv[0: blockSize]
+	if k < blockSize {
+		return append(iv, bytes.Repeat([]byte{0}, blockSize-k)...)
+	} else if k > blockSize {
+		return iv[0:blockSize]
 	}
 
 	return iv
