@@ -3,6 +3,7 @@ package openssl
 import (
 	"encoding/base64"
 	"github.com/stretchr/testify/assert"
+	"reflect"
 	"testing"
 )
 
@@ -93,4 +94,27 @@ func TestAesCBCDecrypt(t *testing.T) {
 	assert.NoError(t, err)
 	t.Log(string(dst))
 	assert.Equal(t, dst, []byte("123456"))
+}
+
+func Test_aesKeyPending(t *testing.T) {
+	type args struct {
+		key []byte
+	}
+	tests := []struct {
+		name string
+		args args
+		want []byte
+	}{
+		{name: "key < 16", args: args{key: []byte("12354678901234")}, want: append([]byte("12354678901234"), []byte{0, 0}...)},
+		{name: "key < 24", args: args{key: []byte("1235467890123546789012")}, want: append([]byte("1235467890123546789012"), []byte{0, 0}...)},
+		{name: "key < 32", args: args{key: []byte("123546789012354678901235467890")}, want: append([]byte("123546789012354678901235467890"), []byte{0, 0}...)},
+		{name: "key > 32", args: args{key: []byte("1235467890123546789012354678901234")}, want: []byte("12354678901235467890123546789012")},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := aesKeyPending(tt.args.key); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("aesKeyPending() = %v, want %v", got, tt.want)
+			}
+		})
+	}
 }
