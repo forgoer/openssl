@@ -10,7 +10,7 @@ import (
 	"io"
 )
 
-// RSAGenerateKey generate RSA private key
+// Generates a new RSA private key.
 func RSAGenerateKey(bits int, out io.Writer) error {
 	privateKey, err := rsa.GenerateKey(rand.Reader, bits)
 	if err != nil {
@@ -24,7 +24,7 @@ func RSAGenerateKey(bits int, out io.Writer) error {
 	return pem.Encode(out, &privateBlock)
 }
 
-// RSAGeneratePublicKey generate RSA public key
+// Generates an RSA public key from a private key.
 func RSAGeneratePublicKey(priKey []byte, out io.Writer) error {
 	block, _ := pem.Decode(priKey)
 	if block == nil {
@@ -47,7 +47,7 @@ func RSAGeneratePublicKey(priKey []byte, out io.Writer) error {
 	return pem.Encode(out, &publicBlock)
 }
 
-// RSAEncrypt RSA encrypt
+// Encrypts data using RSA.
 func RSAEncrypt(src, pubKey []byte) ([]byte, error) {
 	block, _ := pem.Decode(pubKey)
 	if block == nil {
@@ -73,7 +73,7 @@ func RSAEncrypt(src, pubKey []byte) ([]byte, error) {
 	return dst, nil
 }
 
-// RSADecrypt RSA decrypt
+// Decrypts data using RSA.
 func RSADecrypt(src, priKey []byte) ([]byte, error) {
 	block, _ := pem.Decode(priKey)
 	if block == nil {
@@ -94,7 +94,7 @@ func RSADecrypt(src, priKey []byte) ([]byte, error) {
 	return dst, nil
 }
 
-// RSASign RSA sign
+// Signs data using RSA.
 func RSASign(src []byte, priKey []byte, hash crypto.Hash) ([]byte, error) {
 	block, _ := pem.Decode(priKey)
 	if block == nil {
@@ -122,7 +122,7 @@ func RSASign(src []byte, priKey []byte, hash crypto.Hash) ([]byte, error) {
 	return sign, nil
 }
 
-// RSAVerify RSA verify
+// Verifies a signature using RSA.
 func RSAVerify(src, sign, pubKey []byte, hash crypto.Hash) error {
 	block, _ := pem.Decode(pubKey)
 	if block == nil {

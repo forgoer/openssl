@@ -5,7 +5,7 @@ import (
 	"crypto/cipher"
 )
 
-// CBCEncrypt
+// CBCEncrypt encrypts data using the CBC (Cipher Block Chaining) mode.
 func CBCEncrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, error) {
 	blockSize := block.BlockSize()
 	src = Padding(padding, src, blockSize)
@@ -24,7 +24,7 @@ func CBCEncrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, err
 	return encryptData, nil
 }
 
-// CBCDecrypt
+// CBCDecrypt decrypts data using the CBC (Cipher Block Chaining) mode.
 func CBCDecrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, error) {
 
 	dst := make([]byte, len(src))
@@ -41,7 +41,7 @@ func CBCDecrypt(block cipher.Block, src, iv []byte, padding string) ([]byte, err
 	return UnPadding(padding, dst)
 }
 
-// cbcIVPending auto pad length to block size
+// cbcIVPending automatically pads or truncates the IV to match the block size.
 func cbcIVPending(iv []byte, blockSize int) []byte {
 	k := len(iv)
 	if k < blockSize {

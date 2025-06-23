@@ -4,6 +4,7 @@ import (
 	"crypto/cipher"
 )
 
+// Encrypts data using the ECB (Electronic Codebook) mode.
 func ECBEncrypt(block cipher.Block, src []byte, padding string) ([]byte, error) {
 	blockSize := block.BlockSize()
 	src = Padding(padding, src, blockSize)
@@ -16,6 +17,7 @@ func ECBEncrypt(block cipher.Block, src []byte, padding string) ([]byte, error) 
 	return encryptData, nil
 }
 
+// Decrypts data using the ECB (Electronic Codebook) mode.
 func ECBDecrypt(block cipher.Block, src []byte, padding string) ([]byte, error) {
 	dst := make([]byte, len(src))
 
@@ -30,6 +32,7 @@ type ecb struct {
 	blockSize int
 }
 
+// Creates a new ECB struct.
 func newECB(b cipher.Block) *ecb {
 	return &ecb{
 		b:         b,
@@ -47,6 +50,7 @@ func NewECBEncrypter(b cipher.Block) cipher.BlockMode {
 
 func (x *ecbEncrypter) BlockSize() int { return x.blockSize }
 
+// Encrypts a series of blocks using the ECB mode.
 func (x *ecbEncrypter) CryptBlocks(dst, src []byte) {
 	if len(src)%x.blockSize != 0 {
 		panic("crypto/cipher: input not full blocks")
@@ -71,6 +75,7 @@ func NewECBDecrypter(b cipher.Block) cipher.BlockMode {
 
 func (x *ecbDecrypter) BlockSize() int { return x.blockSize }
 
+// Decrypts a series of blocks using the ECB mode.
 func (x *ecbDecrypter) CryptBlocks(dst, src []byte) {
 	if len(src)%x.blockSize != 0 {
 		panic("crypto/cipher: input not full blocks")

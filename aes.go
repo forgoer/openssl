@@ -6,7 +6,7 @@ import (
 	"crypto/cipher"
 )
 
-// AesECBEncrypt
+// AesECBEncrypt encrypts data using the ECB mode of the AES algorithm.
 func AesECBEncrypt(src, key []byte, padding string) ([]byte, error) {
 	block, err := AesNewCipher(key)
 	if err != nil {
@@ -15,7 +15,7 @@ func AesECBEncrypt(src, key []byte, padding string) ([]byte, error) {
 	return ECBEncrypt(block, src, padding)
 }
 
-// AesECBDecrypt
+// AesECBDecrypt decrypts data using the ECB mode of the AES algorithm.
 func AesECBDecrypt(src, key []byte, padding string) ([]byte, error) {
 	block, err := AesNewCipher(key)
 	if err != nil {
@@ -25,7 +25,7 @@ func AesECBDecrypt(src, key []byte, padding string) ([]byte, error) {
 	return ECBDecrypt(block, src, padding)
 }
 
-// AesCBCEncrypt
+// AesCBCEncrypt encrypts data using the CBC mode of the AES algorithm.
 func AesCBCEncrypt(src, key, iv []byte, padding string) ([]byte, error) {
 	block, err := AesNewCipher(key)
 	if err != nil {
@@ -35,7 +35,7 @@ func AesCBCEncrypt(src, key, iv []byte, padding string) ([]byte, error) {
 	return CBCEncrypt(block, src, iv, padding)
 }
 
-// AesCBCDecrypt
+// AesCBCDecrypt decrypts data using the CBC mode of the AES algorithm.
 func AesCBCDecrypt(src, key, iv []byte, padding string) ([]byte, error) {
 	block, err := AesNewCipher(key)
 	if err != nil {
@@ -45,13 +45,12 @@ func AesCBCDecrypt(src, key, iv []byte, padding string) ([]byte, error) {
 	return CBCDecrypt(block, src, iv, padding)
 }
 
-// AesNewCipher creates and returns a new AES cipher.Block.
-// it will automatically pad the length of the key.
+// AesNewCipher creates and returns a new AES cipher block. Automatically pads the key length.
 func AesNewCipher(key []byte) (cipher.Block, error) {
 	return aes.NewCipher(aesKeyPending(key))
 }
 
-// aesKeyPending The length of the key can be 16/24/32 characters (128/192/256 bits)
+// aesKeyPending ensures the key length is 16, 24, or 32 bytes (128, 192, or 256 bits).
 func aesKeyPending(key []byte) []byte {
 	k := len(key)
 	count := 0
