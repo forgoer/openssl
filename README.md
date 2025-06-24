@@ -1,7 +1,7 @@
 # Openssl encryption
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/forgoer/openssl)](https://goreportcard.com/report/github.com/forgoer/openssl)
-[![Default](https://github.com/forgoer/openssl/workflows/build/badge.svg?branch=master)](https://github.com/forgoer/openssl/actions)
+[![build](https://github.com/forgoer/openssl/actions/workflows/build.yml/badge.svg)](https://github.com/forgoer/openssl/actions/workflows/build.yml)
 [![Coverage Status](https://coveralls.io/repos/github/forgoer/openssl/badge.svg?branch=master)](https://coveralls.io/github/forgoer/openssl?branch=master)
 [![Godoc](https://godoc.org/github.com/forgoer/openssl?status.svg)](https://pkg.go.dev/github.com/forgoer/openssl)
 [![Release](https://img.shields.io/github/release/forgoer/openssl.svg)](https://github.com/forgoer/openssl/releases/latest)
