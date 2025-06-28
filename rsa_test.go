@@ -3,6 +3,9 @@ package openssl
 import (
 	"bytes"
 	"crypto"
+	"crypto/rsa"
+	"crypto/x509"
+	"encoding/pem"
 	"encoding/base64"
 	"testing"
 
@@ -51,4 +54,36 @@ func TestRSASign(t *testing.T) {
 
 	err = RSAVerify(src, sign, pubBuf.Bytes(), crypto.SHA256)
 	assert.NoError(t, err)
+}
+
+func TestRSAGenerateKey(t *testing.T) {
+	priBuf := bytes.NewBuffer(nil)
+	err := RSAGenerateKey(2048, priBuf)
+	assert.NoError(t, err)
+
+	block, _ := pem.Decode(priBuf.Bytes())
+	assert.NotNil(t, block, "Failed to decode private key")
+	assert.Equal(t, "RSA PRIVATE KEY", block.Type, "Invalid key type")
+
+	_, err = x509.ParsePKCS1PrivateKey(block.Bytes)
+	assert.NoError(t, err, "Failed to parse private key")
+}
+
+func TestRSAGeneratePublicKey(t *testing.T) {
+	priBuf := bytes.NewBuffer(nil)
+	err := RSAGenerateKey(2048, priBuf)
+	assert.NoError(t, err)
+
+	pubBuf := bytes.NewBuffer(nil)
+	err = RSAGeneratePublicKey(priBuf.Bytes(), pubBuf)
+	assert.NoError(t, err)
+
+	block, _ := pem.Decode(pubBuf.Bytes())
+	assert.NotNil(t, block, "Failed to decode public key")
+	assert.Equal(t, "RSA PUBLIC KEY", block.Type, "Invalid key type")
+
+	pubKey, err := x509.ParsePKIXPublicKey(block.Bytes)
+	assert.NoError(t, err, "Failed to parse public key")
+	_, ok := pubKey.(*rsa.PublicKey)
+	assert.True(t, ok, "Key is not an RSA public key")
 }
