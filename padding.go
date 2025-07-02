@@ -12,28 +12,30 @@ const PKCS5_PADDING = "PKCS5"
 const PKCS7_PADDING = "PKCS7"
 const ZEROS_PADDING = "ZEROS"
 
+var paddingFunctions = map[string]func([]byte, int) []byte{
+	PKCS5_PADDING: PKCS5Padding,
+	PKCS7_PADDING: PKCS7Padding,
+	ZEROS_PADDING: ZerosPadding,
+}
+
+var unpaddingFunctions = map[string]func([]byte) ([]byte, error){
+	PKCS5_PADDING: PKCS5Unpadding,
+	PKCS7_PADDING: PKCS7UnPadding,
+	ZEROS_PADDING: ZerosUnPadding,
+}
+
 // Applies the specified padding scheme to the input data.
 func Padding(padding string, src []byte, blockSize int) []byte {
-	switch padding {
-	case PKCS5_PADDING:
-		src = PKCS5Padding(src, blockSize)
-	case PKCS7_PADDING:
-		src = PKCS7Padding(src, blockSize)
-	case ZEROS_PADDING:
-		src = ZerosPadding(src, blockSize)
+	if fn, ok := paddingFunctions[padding]; ok {
+		return fn(src, blockSize)
 	}
 	return src
 }
 
 // Removes the specified padding from the input data.
 func UnPadding(padding string, src []byte) ([]byte, error) {
-	switch padding {
-	case PKCS5_PADDING:
-		return PKCS5Unpadding(src)
-	case PKCS7_PADDING:
-		return PKCS7UnPadding(src)
-	case ZEROS_PADDING:
-		return ZerosUnPadding(src)
+	if fn, ok := unpaddingFunctions[padding]; ok {
+		return fn(src)
 	}
 	return src, nil
 }
@@ -80,9 +82,14 @@ func ZerosPadding(src []byte, blockSize int) []byte {
 
 // Removes zero padding from the input data.
 func ZerosUnPadding(src []byte) ([]byte, error) {
-	for i := len(src) - 1; ; i-- {
+	length := len(src)
+	if length == 0 {
+		return src, nil
+	}
+	for i := length - 1; i >= 0; i-- {
 		if src[i] != 0 {
 			return src[:i+1], nil
 		}
 	}
+	return []byte{}, nil
 }

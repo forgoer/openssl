@@ -6,6 +6,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const (
+	TestBlockSize10 = 10
+	TestBlockSize20 = 20
+	TestBlockSize30 = 30
+)
+
 func TestSHA1(t *testing.T) {
 	testData := []byte("test")
 	h := sha1.New()
@@ -16,14 +22,17 @@ func TestSHA1(t *testing.T) {
 }
 
 func TestKeyGenerator(t *testing.T) {
+	testData := []byte("test")
+	result10 := KeyGenerator(testData, TestBlockSize10)
+	result20 := KeyGenerator(testData, TestBlockSize20)
 	testCases := []struct {
 		data      []byte
 		blockSize int
 		expected  []byte
 	}{
-		{[]byte("test"), 10, KeyGenerator([]byte("test"), 10)},
-		{[]byte("test"), 20, KeyGenerator([]byte("test"), 20)},
-		{[]byte("test"), 30, []byte("test")},
+		{testData, TestBlockSize10, result10},
+		{testData, TestBlockSize20, result20},
+		{testData, TestBlockSize30, []byte("test")},
 	}
 
 	for _, tc := range testCases {
